@@ -4,15 +4,16 @@ import './App.css'
 import NavBar from './routes/NavBar'
 import AppRoutes from './routes/AppRoutes'
 import Seller from './models/Seller'
+import LoginComponent from './components/LoginComponent'
 
 function App() {
-  const [seller, setSeller] = useState(new Seller("oshi"))
+  const [seller, setSeller] = useState(new Seller("oshi", "ADMIN"))
 
   return (
     <>
       <Router>
         <NavBar />
-        <AppRoutes seller={seller} />
+        <LoginComponent />
       </Router>
     </>
   )

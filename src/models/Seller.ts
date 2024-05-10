@@ -1,6 +1,7 @@
 export default class Seller {
     constructor(
-        public userName:string,
+        public username:string,
+        public role:string,
         public password?:string,
         public city?:string,
         public birthyear?:number,

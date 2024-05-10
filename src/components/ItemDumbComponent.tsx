@@ -7,12 +7,14 @@ const ItemDumbComponent:React.FC<Props> = (props) => {
     return(
         <table>
             <thead>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>used year</th>
-                <th>produced year</th>
-                <th>Like New</th>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>used year</th>
+                    <th>produced year</th>
+                    <th>Like New</th>
+                </tr>
             </thead>
             <tbody>
                 {props.items.map( (item:Item) => {

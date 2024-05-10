@@ -6,7 +6,7 @@ export const getAllItems = async (seller:Seller):Promise<Item[]> => {
     const res = await SellerItemClient
     .get<Item[]>("item/all", {
         //basic auth
-        auth:{username:seller.userName || "", 
+        auth:{username:seller.username || "", 
             password:seller.password || ""}
     })
     if (res.status === 200) {
@@ -20,7 +20,7 @@ export const getAllItems = async (seller:Seller):Promise<Item[]> => {
 export const addItem = async (item:Item, seller:Seller):Promise<number> => {
     const res = await SellerItemClient
     .post("/item", item, {
-        auth:{username: seller.userName || '',
+        auth:{username: seller.username || '',
             password:seller.password || ""
         }
     })

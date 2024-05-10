@@ -20,7 +20,7 @@ const SellerDumbComponent:React.FC<Props> = (props) => {
                     return(
                         <tr>
                             <td>{seller.id}</td>
-                            <td>{seller.userName}</td>
+                            <td>{seller.username}</td>
                             <td>{seller.city}</td>
                             <td>{seller.birthyear}</td>
                         </tr>
