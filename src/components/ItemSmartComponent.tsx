@@ -2,7 +2,7 @@ import React from "react"
 import Item from "../models/Item"
 import ItemDumbComponent from "./ItemDumbComponent"
 import Seller from "../models/Seller"
-import { addItem, getAllItems } from "../remote/ItemAPI"
+import { addItem, getAllItems, deleteItem, editItem } from "../remote/ItemAPI"
 
 type Props = {seller:Seller}
 
@@ -16,7 +16,24 @@ const ItemSmartComponent:React.FC<Props> = (props) => {
     const [yearProduced, setYearProduced] = React.useState<number>(0)
     const [likeNew, setLikeNew] = React.useState<boolean>(false)
 
-    const handle 
+    const handleAddItem = async () => {
+        const result = await addItem (
+            new Item(id, itemName, description, yearUsed, yearProduced, likeNew), 
+            props.seller
+        )
+
+        if (result === 201) {
+            const apiItems: Item[] = await getAllItems(props.seller)
+            setItems(apiItems)
+            //reset the form fields after successful addition
+            setId(0)
+            setItemName("")
+            setDescription("")
+            setYearUsed(0)
+            setYearProduced(0)
+            setLikeNew(false)
+        }
+    } 
 
     return(
         <div>
@@ -31,46 +48,42 @@ const ItemSmartComponent:React.FC<Props> = (props) => {
             <form>
                 <input 
                     placeholder="item name"
-                    type="text" onChange={ (e) => {
+                    type="text" 
+                    value={itemName}
+                    onChange={ (e) => {
                         setItemName(e.target.value)
                 }}/>
                 <input 
                     placeholder="description"
-                    type="textarea" onChange={ (e) => {
+                    type="textarea" 
+                    value={description}
+                    onChange={ (e) => {
                         setDescription(e.target.value)
                 }}/>
                 <input 
                     placeholder="used year"
-                    type="number" onChange={ (e) => {
+                    type="number" 
+                    value={yearUsed}
+                    onChange={ (e) => {
                         setYearUsed(Number.parseInt(e.target.value))
                 }}/>
                 <input 
                     placeholder="year produced"
-                    type="number" onChange={ (e) => {
+                    type="number" 
+                    value={yearProduced}
+                    onChange={ (e) => {
                         setYearProduced(Number.parseInt(e.target.value))
                 }}/>
                 <input 
                     placeholder="Like New"
-                    type="checkbox" onChange={ (e) => {
+                    type="checkbox" 
+                    checked={likeNew}
+                    onChange={ (e) => {
                         setLikeNew(e.target.checked)
                 }}/>
             </form>
-            <button onClick = { async() => {
-                const result:number = await addItem (
-                    new Item(id, 
-                        itemName, 
-                        description, 
-                        yearUsed, 
-                        yearProduced, 
-                        likeNew )
-                , props.seller)
-
-                if (result === 201) {
-                    const apiItems:Item[] = await getAllItems(props.seller)
-                    setItems(apiItems)
-                }
-            }}>
-            Add item
+            <button onClick = {handleAddItem}>
+                Add item
             </button>
         </div>
     )
