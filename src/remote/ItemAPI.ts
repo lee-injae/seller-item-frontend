@@ -20,8 +20,9 @@ export const getAllItems = async (seller:Seller):Promise<Item[]> => {
 export const addItem = async (item:Item, seller:Seller):Promise<number> => {
     const res = await SellerItemClient
     .post("/item", item, {
-        auth:{username: seller.username || '',
-            password:seller.password || ""
+        auth:{
+            username: seller.username || '',
+            password: seller.password || ""
         }
     })
     if (res.status != 201) {
@@ -30,4 +31,31 @@ export const addItem = async (item:Item, seller:Seller):Promise<number> => {
     return res.status
 }
 
-export const deleteItem = async (item:Item, seller:Seller):Promise
+export const deleteItem = async (item:Item, seller:Seller):Promise<number> => {
+    const res = await SellerItemClient
+    .delete(`/item/${item.id}`, {
+        auth:{
+            username: seller.username || "", 
+            password: seller.password || ""
+        }
+    })
+    if (res.status != 200) {
+        console.log("failed to delete the item:", res)
+    }
+    return res.status
+}
+
+export const editItem = async (item:Item, seller:Seller):Promise<number> => {
+    const res = await SellerItemClient
+    .put(`/item/${item.id}`, item, {
+        auth: {
+            username: seller.username || "",
+            password: seller.password || ""
+        }
+    })
+    if (res.status != 202) {
+        console.log("failed to update the item:", res)
+    }
+    return res.status
+}
+

@@ -16,6 +16,8 @@ const ItemSmartComponent:React.FC<Props> = (props) => {
     const [yearProduced, setYearProduced] = React.useState<number>(0)
     const [likeNew, setLikeNew] = React.useState<boolean>(false)
 
+    const handle 
+
     return(
         <div>
             <ItemDumbComponent items={items} />
