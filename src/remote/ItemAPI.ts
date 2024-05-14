@@ -29,3 +29,5 @@ export const addItem = async (item:Item, seller:Seller):Promise<number> => {
     }
     return res.status
 }
+
+export const deleteItem = async (item:Item, seller:Seller):Promise

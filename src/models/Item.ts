@@ -5,7 +5,7 @@ export default class Item {
         public description?:string,
         public yearUsed?: number,
         public yearProduced?: number,
-        public isLikeNew?:boolean
+        public likeNew?:boolean
     ) {}
 }
 

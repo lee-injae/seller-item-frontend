@@ -9,11 +9,12 @@ type Props = {seller:Seller}
 const ItemSmartComponent:React.FC<Props> = (props) => {
 
     const [items, setItems] = React.useState<Item[]>([])
+    const [id, setId] = React.useState<number>(0)
     const [itemName, setItemName] = React.useState<string>("")
     const [description, setDescription] = React.useState<string>("")
     const [yearUsed, setYearUsed] = React.useState<number>(0)
     const [yearProduced, setYearProduced] = React.useState<number>(0)
-    const [isLikeNew, setIsLikeNew] = React.useState<boolean>(false)
+    const [likeNew, setLikeNew] = React.useState<boolean>(false)
 
     return(
         <div>
@@ -34,32 +35,32 @@ const ItemSmartComponent:React.FC<Props> = (props) => {
                 <input 
                     placeholder="description"
                     type="textarea" onChange={ (e) => {
-                        setItemName(e.target.value)
+                        setDescription(e.target.value)
                 }}/>
                 <input 
                     placeholder="used year"
                     type="number" onChange={ (e) => {
-                        setItemName(e.target.value)
+                        setYearUsed(Number.parseInt(e.target.value))
                 }}/>
                 <input 
                     placeholder="year produced"
                     type="number" onChange={ (e) => {
-                        setItemName(e.target.value)
+                        setYearProduced(Number.parseInt(e.target.value))
                 }}/>
                 <input 
                     placeholder="Like New"
                     type="checkbox" onChange={ (e) => {
-                        setItemName(e.target.value)
+                        setLikeNew(e.target.checked)
                 }}/>
             </form>
             <button onClick = { async() => {
                 const result:number = await addItem (
-                    new Item(0, 
+                    new Item(id, 
                         itemName, 
                         description, 
                         yearUsed, 
                         yearProduced, 
-                        isLikeNew )
+                        likeNew )
                 , props.seller)
 
                 if (result === 201) {
